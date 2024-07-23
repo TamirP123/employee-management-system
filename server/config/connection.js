@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/motivational-react-app');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1/employee-management-system');
 
 const db = mongoose.connection;
 
