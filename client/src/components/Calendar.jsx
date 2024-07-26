@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/calendar.css';
+
 
 const WeeklyCalendar = () => {
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];

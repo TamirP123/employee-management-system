@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import '../styles/hero.css';
+
 
 const Hero = () => {
     const [isVisible, setIsVisible] = useState(false);

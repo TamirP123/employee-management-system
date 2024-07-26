@@ -6,6 +6,7 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      createdAt
     }
   }
 `;
@@ -16,6 +17,7 @@ export const QUERY_USERS = gql`
         username
         email
         isAdmin
+        createdAt
       }
   }
 `;

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import logo from "../assets/logo.png";
+import '../styles/navbar.css';
 
 const Nav = () => {
   const logout = (event) => {
@@ -9,7 +10,7 @@ const Nav = () => {
     Auth.logout();
   };
   return (
-    <div className="navbar">
+    <div className="navbar bg-light">
       <img src={logo} alt="Logo" className="navbar-logo" />
 
       <Link to="/" style={{ textDecoration: "none" }}>

@@ -1,0 +1,54 @@
+.weekly-calendar {
+    display: flex;
+    justify-content: space-around;
+    margin: 5px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .day {
+    color: rgb(174, 172, 172);
+    /* font-size: 15px; */
+  }
+  
+  .today {
+    position: relative;
+    /* width: 32px; */
+    height: 70px;
+    background: rgb(121, 174, 192);
+    border-radius: 25px;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    color: #f5ff82;
+  }
+  
+  .day-name {
+    margin-top: 5px;
+  }
+  
+  .day-number {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .time-text {
+    font-size: 50px;
+    margin-top: 0px;
+    margin-left: 15px;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  
+  .time-sub-text {
+    font-size: 15px;
+    margin-left: 5px;
+  }
+  
+  .day-text {
+    font-size: 18px;
+    margin-top: 0px;
+    margin-left: 15px;
+    font-weight: 500;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }

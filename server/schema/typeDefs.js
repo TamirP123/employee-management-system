@@ -5,6 +5,7 @@ type User {
   email: String!
   password: String!
   isAdmin: Boolean
+  createdAt: String
 }
 
 type Post {

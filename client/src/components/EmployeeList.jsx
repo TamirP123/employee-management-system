@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import { QUERY_USERS } from "../utils/queries";
+import '../styles/employeelist.css';
+
 
 const EmployeeList = () => {
     const { loading, data } = useQuery(QUERY_USERS);
@@ -16,32 +18,31 @@ const EmployeeList = () => {
     }
 
     return (
-        <div>
-            <h3>Employee List</h3>
-            
-                <div className="col-10">
-                    <div className="row">
-                        {nonAdminUsers.map((user) => (
-                            <div class="user-card col-12 mx-3 mt-3">
-                            <div class="user__container">
-                              <div class="user">
-                                <div class="user__content">
-                                  <div class="text-center">
-                                    <span class="name text-dark">{user.username}</span>
-                                    <p class="username">{user.email}</p>
-                                    <h3 class="username">Status: []</h3>
-                                  </div>
-                                </div>
-                                
-                              </div>  
-                          
-                            </div>
-                            <a class="more" href="#">View</a>
-                          </div>
-                        ))}
-                    </div>
-                </div>
-        </div>
+      <div className="employee-card bg-light mt-4">
+      <h4 className="mt-3 mx-3 text-start lead">Employee List</h4>
+      <div className="col-12">
+        <table className="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th className="lead">Name</th>
+              <th className="lead">Email</th>
+              <th className="lead">Role</th>
+              <th className="lead">Join Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {nonAdminUsers.map((user) => (
+              <tr key={user.id}>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>Employee</td>
+                <td>{user.createdAt}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
     );
 };
 

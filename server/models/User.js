@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const dayjs = require('dayjs');
 
 const userSchema =  new Schema({
   username: {
@@ -21,6 +22,13 @@ const userSchema =  new Schema({
     type: Boolean,
     default: false
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: function(dateTime){
+        return dayjs(dateTime).format("h:mm A MM/DD/YYYY")
+    },
+},
   
 });
 

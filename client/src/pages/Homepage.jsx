@@ -2,23 +2,18 @@ import { Link } from "react-router-dom";
 import { useEffect } from 'react';
 import { useQuery } from "@apollo/client";
 import Hero from "../components/Hero";
+import Nav from "../components/Nav";
 import Auth from "../utils/auth";
 import AdminPage from "./AdminPage";
+import EmployeePage from "./EmployeePage";
 
 
-const Homepage = () => {
+const EmployeeDashboard = () => {
   
   if (Auth.loggedIn() === true && Auth.getProfile().authenticatedPerson.isAdmin === false) {
     return (
       <div className="homepageContain">
-        <div>
-          <div className="mb-3 text-center">
-            <h2 className=" p-3 mb-5">
-              Employee Dashboard
-            </h2>
-          
-          </div>
-        </div>
+        <EmployeePage />
       </div>
     );
   }
@@ -31,11 +26,11 @@ const Homepage = () => {
   }
   return (
     <div>
-    
+        <Nav/>
         <Hero/>
 
     </div>
   );
 };
 
-export default Homepage;
+export default EmployeeDashboard;
