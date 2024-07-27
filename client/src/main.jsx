@@ -5,7 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from './App.jsx';
 import Homepage from './pages/Homepage.jsx';
 import Login from './pages/Login.jsx'
-import EmployeeDashboard from './pages/Homepage.jsx';
+import EmployeeDashboard from './pages/EmployeeDashboard.jsx';
+import LogsPage from './pages/LogsPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -23,6 +24,9 @@ const router = createBrowserRouter([
       }, {
         path: '/employees',
         element: <EmployeeDashboard />
+      }, {
+        path: '/logs',
+        element: <LogsPage />
       },
       
     ]

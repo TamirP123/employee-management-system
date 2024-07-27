@@ -6,7 +6,7 @@ import SidePanel from "../components/SidePanel";
 import EmployeeList from "../components/EmployeeList";
 
 
-const EmployeePage = () => {
+const EmployeeDashboard = () => {
 
   if (Auth.loggedIn() === true && Auth.getProfile().authenticatedPerson.isAdmin === true) {
     return (
@@ -30,4 +30,4 @@ const EmployeePage = () => {
 }
 };
 
-export default EmployeePage;
+export default EmployeeDashboard;

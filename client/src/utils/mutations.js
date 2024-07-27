@@ -33,3 +33,22 @@ export const ADD_USER = gql`
   }
 `;
 
+export const CLOCK_IN = gql`
+  mutation clockIn($userId: ID!) {
+    clockIn(userId: $userId) {
+      _id
+      clockedIn
+    }
+  }
+`;
+
+export const CLOCK_OUT = gql`
+  mutation clockOut($userId: ID!) {
+    clockOut(userId: $userId) {
+      _id
+      clockedIn
+    }
+  }
+`;
+
+

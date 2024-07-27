@@ -6,6 +6,7 @@ type User {
   password: String!
   isAdmin: Boolean
   createdAt: String
+  clockedIn: Boolean
 }
 
 type Post {
@@ -53,6 +54,8 @@ type Query {
   categories: [Category]
   thoughts: [Thought]!
   thought(thoughtId: ID!): Thought
+  logs: [Log]
+  userLogs(userId: ID!): [Log]
 }
 
 type Auth {
@@ -60,7 +63,17 @@ type Auth {
   user: User
 }
 
+type Log {
+    _id: ID
+    userId: User
+    action: String
+    timestamp: String
+  }
+
+
+
 type Mutation {
+  addLog(userId: ID!, action: String!): Log
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addPost(description: String!, image: String!, category: ID!): Post
@@ -71,6 +84,8 @@ type Mutation {
   addThoughtComment(thoughtId: ID!, commentText: String!): Thought
   removeThought(thoughtId: ID!): Thought
   removeThoughtComment(thoughtId: ID!, commentId: ID!): Thought
+  clockIn(userId: ID!): User
+  clockOut(userId: ID!): User
 }
 `;
 

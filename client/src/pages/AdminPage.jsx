@@ -56,8 +56,10 @@ const AdminPage = () => {
               <div className="col-3 mt-4">
                 <div className="card bg-light d-flex justify-content-center align-items-center">
                   <div className="category text-center">
+                  <Link to="/logs" className="link" style={{ textDecoration: "none" }}>
                     <i className="fa-regular fa-folder-closed fs-1 mb-1"></i>
                     <div className="fs-5 lead">Logs</div>
+                    </Link>
                   </div>
                 </div>
               </div>

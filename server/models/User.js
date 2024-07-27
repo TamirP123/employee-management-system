@@ -29,6 +29,10 @@ const userSchema =  new Schema({
         return dayjs(dateTime).format("h:mm A MM/DD/YYYY")
     },
 },
+clockedIn: {
+  type: Boolean,
+  default: false
+},
   
 });
 

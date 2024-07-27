@@ -7,6 +7,20 @@ export const QUERY_USER = gql`
       username
       email
       createdAt
+      clockedIn
+    }
+  }
+`;
+
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      isAdmin
+      createdAt
+      clockedIn
     }
   }
 `;
@@ -18,7 +32,21 @@ export const QUERY_USERS = gql`
         email
         isAdmin
         createdAt
+        clockedIn
       }
+  }
+`;
+
+export const QUERY_LOGS = gql`
+  query logs {
+    logs {
+      _id
+      userId {
+        username
+      }
+      action
+      timestamp
+    }
   }
 `;
 
