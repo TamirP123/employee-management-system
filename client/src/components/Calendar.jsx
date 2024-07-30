@@ -25,20 +25,20 @@ const WeeklyCalendar = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date) => {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const isAm = hours < 12;
-    const formattedHours = hours % 12 || 12;
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-    const amPm = isAm ? 'AM' : 'PM';
-    return `${formattedHours}:${formattedMinutes} ${amPm}`;
-  };
+  // const formatTime = (date) => {
+  //   const hours = date.getHours();
+  //   const minutes = date.getMinutes();
+  //   const isAm = hours < 12;
+  //   const formattedHours = hours % 12 || 12;
+  //   const formattedMinutes = minutes.toString().padStart(2, '0');
+  //   const amPm = isAm ? 'AM' : 'PM';
+  //   return `${formattedHours}:${formattedMinutes} ${amPm}`;
+  // };
 
-  const formatDate = (date) => {
-    const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-  };
+  // const formatDate = (date) => {
+  //   const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  //   return date.toLocaleDateString('en-US', options);
+  // };
 
   return (
     <div className="weekly-calendar container">

@@ -26,7 +26,11 @@ const LogsPage = () => {
           {logs.map(log => (
             <tr key={log._id}>
               <td>{log.userId.username}</td>
-              <td>{log.action}</td>
+              <td>{log.action === "CLOCK_IN" ? (
+            "Clock In"
+          ) : (
+            "Clock Out"
+          )}</td>
               <td>{new Date(log.timestamp).toLocaleString()}</td>
             </tr>
           ))}

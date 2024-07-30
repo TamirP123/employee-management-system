@@ -34,9 +34,9 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            <div class="menu">
-              <div class="item">
-                <a class="link">
+            <div className="menu">
+              <div className="item">
+                <a className="link">
                   <span> Login </span>
                   <svg viewBox="0 0 360 360" xml:space="preserve">
                     <g id="SVGRepo_iconCarrier">
@@ -47,8 +47,8 @@ const Nav = () => {
                     </g>
                   </svg>
                 </a>
-                <div class="submenu">
-                  <div class="submenu-item">
+                <div className="submenu">
+                  <div className="submenu-item">
                     <Link
                       className="admin-link"
                       to="/login"
@@ -57,7 +57,7 @@ const Nav = () => {
                       Administrator
                     </Link>
                   </div>
-                  <div class="submenu-item">
+                  <div className="submenu-item">
                     <Link
                       className="employee-link"
                       to="/login"

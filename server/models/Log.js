@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dayjs = require('dayjs');
 
 const logSchema = new mongoose.Schema({
   userId: {
@@ -12,8 +13,8 @@ const logSchema = new mongoose.Schema({
     required: true
   },
   timestamp: {
-    type: Date,
-    default: Date.now
+    type: String,
+    default: () => dayjs().format('YYYY-MM-DD HH:mm')
   }
 });
 

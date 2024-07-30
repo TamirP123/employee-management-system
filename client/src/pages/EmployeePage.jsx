@@ -6,10 +6,7 @@ import Auth from "../utils/auth";
 import { QUERY_ME } from "../utils/queries";
 import { CLOCK_IN, CLOCK_OUT } from "../utils/mutations";
 import Calendar from "../components/Calendar";
-import EmployeeList from "../components/EmployeeList";
 import SidePanel from "../components/SidePanel";
-import LineChart from "../components/LineChart";
-import PieChart from "../components/PieChart";
 import ClockNotification from "../components/ClockNotification";
 
 const EmployeePage = () => {
@@ -20,13 +17,15 @@ const EmployeePage = () => {
     setIsVisible(true);
   }, []);
 
+  // Track current time
+  const currentTime = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const user = data?.me || {};
 
+  // Clock in action
   const [clockIn] = useMutation(CLOCK_IN, {
     onCompleted: () => {
-      refetch();
-      setNotification("You have clocked in.");
+      setNotification(`You have clocked in at ${currentTime}.`);
     },
     onError: (error) => {
       console.error("Error clocking in:", error);
@@ -34,10 +33,11 @@ const EmployeePage = () => {
     },
   });
 
+  // Clock out action
   const [clockOut] = useMutation(CLOCK_OUT, {
     onCompleted: () => {
       refetch();
-      setNotification("You have clocked out.");
+      setNotification(`You have clocked out at ${currentTime}.`);
     },
     onError: (error) => {
       console.error("Error clocking out:", error);
@@ -45,6 +45,7 @@ const EmployeePage = () => {
     },
   });
 
+  // Button handler to clock in
   const handleClockIn = async () => {
     try {
       await clockIn({ variables: { userId: user._id } });
@@ -53,6 +54,7 @@ const EmployeePage = () => {
     }
   };
 
+  // Button handler to clock out
   const handleClockOut = async () => {
     try {
       await clockOut({ variables: { userId: user._id } });

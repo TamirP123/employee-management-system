@@ -18,11 +18,11 @@ const AdminPage = () => {
 
   return (
     <div className="container-fluid">
-      <div class="row flex-nowrap">
+      <div className="row flex-nowrap">
         <div className="col-2">
           <SidePanel />
         </div>
-        <div class="col-10 py-3">
+        <div className="col-10 py-3">
           <Navbar bg="light" variant="dark" expand="lg">
             <Container>
               <Calendar></Calendar>
@@ -37,7 +37,7 @@ const AdminPage = () => {
               Welcome {Auth.getProfile().authenticatedPerson.username}!
             </h3>
 
-            <p class="fs-6 text-start mx-4 lead">
+            <p className="fs-6 text-start mx-4 lead">
               View your Daily Analytics on the content below.
             </p>
 

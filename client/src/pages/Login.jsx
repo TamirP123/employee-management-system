@@ -40,37 +40,37 @@ function Login(props) {
 
   return (
     <div className="background">
-    <div class="signup-form mt-5">
+    <div className="signup-form mt-5">
       <form onSubmit={handleFormSubmit}>
         <h2>Welcome Back!</h2>
-        <p class="hint-text">Please enter your Employee information.</p>
-        <div class="form-group">
+        <p className="hint-text">Please enter your Employee information.</p>
+        <div className="form-group">
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             name="email"
             placeholder="Email"
             required="required"
             onChange={handleChange}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             name="password"
             placeholder="Password"
             required="required"
             onChange={handleChange}
           />
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-lg btn-block login-btn">
+        <div className="form-group">
+          <button type="submit" className="btn btn-lg btn-block login-btn">
             Log in
           </button>
         </div>
       </form>
-      <div class="text-center">
+      <div className="text-center">
         Don't have an account?{" "}
         <Link to="/signup" style={{ textDecoration: "none" }}>
           Sign up
