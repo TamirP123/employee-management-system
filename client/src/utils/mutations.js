@@ -51,4 +51,24 @@ export const CLOCK_OUT = gql`
   }
 `;
 
+export const REQUEST_TIME_OFF = gql`
+  mutation requestTimeOff($userId: ID!, $startDate: String!, $endDate: String!) {
+    requestTimeOff(userId: $userId, startDate: $startDate, endDate: $endDate) {
+      _id
+      startDate
+      endDate
+      status
+      createdAt
+    }
+  }
+`;
+
+export const UPDATE_TIME_OFF_REQUEST_STATUS = gql`
+  mutation updateTimeOffRequestStatus($requestId: ID!, $status: String!) {
+    updateTimeOffRequestStatus(requestId: $requestId, status: $status) {
+      _id
+      status
+    }
+  }
+`;
 

@@ -122,8 +122,10 @@ const EmployeePage = () => {
               <div className="col-3 mt-4">
                 <div className="card bg-light d-flex justify-content-center align-items-center">
                   <div className="category text-center">
+                  <Link to="/request-time-off" className="link" style={{ textDecoration: "none" }}>
                     <i className="fa-regular fa-clipboard fs-1 mb-1"></i>
                     <div className="fs-5 lead">Request Time-off</div>
+                    </Link>
                   </div>
                 </div>
               </div>

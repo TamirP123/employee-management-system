@@ -1,103 +1,117 @@
-import React, { useEffect, useState } from 'react';
-import logo from "../assets/logo.png"
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
-// import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import logo from "../assets/logo.png";
 
-
-const SidePanel = () => {
+const Sidebar = () => {
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
       };
 
+  const [collapsed, setCollapsed] = useState(true);
+
+  const handleToggleSidebar = () => {
+    setCollapsed(!collapsed);
+  };
+
+  const sidebarStyle = {
+    width: collapsed ? '80px' : '250px',
+    transition: 'width 0.3s',
+    background: '#f8f9fa',
+    color: 'gray',
+    height: '100vh',
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const menuItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 20px',
+  };
+
+  if (Auth.loggedIn() === true && Auth.getProfile().authenticatedPerson.isAdmin === false) {
     return (
-        <div className="sticky-top">
-    <div className="">
-        <div className="px-0 bg-light">
-            <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span className="fs-5 d-none d-sm-inline text-dark"><img src={logo} alt="Logo" className="navbar-logo" /></span>
-                    <span className="mx-3 fs-4 d-none d-sm-inline text-dark">Admin Panel</span>
-                </a>
-                <ul className="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li className="nav-item">
-                        <a href="#" className="nav-link align-middle px-0">
-                            <i className="fs-4 bi-house"></i> <span className="ms-1 d-none d-sm-inline">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" className="nav-link px-0 align-middle">
-                            <i className="fs-4 bi-speedometer2"></i> <span className="ms-1 d-none d-sm-inline">Employees</span> </a>
-                        <ul className="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li className="w-100">
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">View All</span></a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Create New</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" className="nav-link px-0 align-middle">
-                            <i className="fs-4 bi-table"></i> <span className="ms-1 d-none d-sm-inline">Orders</span></a>
-                    </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" className="nav-link px-0 align-middle ">
-                            <i className="fs-4 bi-bootstrap"></i> <span className="ms-1 d-none d-sm-inline">Logs</span></a>
-                        <ul className="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li className="w-100">
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Item</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Item</span> 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" className="nav-link px-0 align-middle">
-                            <i className="fs-4 bi-grid"></i> <span className="ms-1 d-none d-sm-inline">Products</span> </a>
-                            <ul className="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li className="w-100">
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Product</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Product</span> 2</a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Product</span> 3</a>
-                            </li>
-                            <li>
-                                <a href="#" className="nav-link px-0"> <span className="d-none d-sm-inline">Product</span> 4</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                    <a className="" onClick={logout}>
-              Logout
-            </a>
-                    </li>
-                </ul>
-                <hr/>
-                <div className="dropdown pb-4">
-                    <a href="#" className="d-flex align-items-center text-darl text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/TamirP123.png" alt="hugenerd" width="30" height="30" className="rounded-circle"/>
-                        <span className="d-none d-sm-inline mx-1">user</span>
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a className="dropdown-item" href="#">New project...</a></li>
-                        <li><a className="dropdown-item" href="#">Settings</a></li>
-                        <li><a className="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr className="dropdown-divider"/>
-                        </li>
-                        <li><a className="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
-            </div>
+      <div className="sticky-top">
+      <div className="sidebar" style={{ display: 'flex', height: '100vh' }}>
+        <div style={sidebarStyle} className="d-flex flex-column">
+          <div style={menuItemStyle} onClick={handleToggleSidebar}>
+            <i className="fas fa-bars"></i>
+            {!collapsed && (
+              <span style={{ marginLeft: '43px' }}>
+                <img src={logo} alt="Logo" className="sidebar-logo" />
+              </span>
+            )}
+          </div>
+          <Menu iconShape="square" className="flex-grow-1">
+          <Link to="/" style={{ textDecoration: "none", color: 'gray' }}>
+            <MenuItem icon={<i className="fas fa-tachometer-alt"></i>}>Dashboard</MenuItem>
+            </Link>
+            <SubMenu label="Requests" icon={<i className="fa-solid fa-user-plus"></i>}>
+            <Link to="/view-requests" style={{ textDecoration: "none", color: 'gray' }}>
+              <MenuItem>View Requests</MenuItem>
+              </Link>
+              <Link to="/create-employee" style={{ textDecoration: "none", color: 'gray' }}>
+              <MenuItem>Add Request</MenuItem>
+              </Link>
+            </SubMenu>
+            <MenuItem icon={<i className="fas fa-project-diagram"></i>}>View Status</MenuItem>
+          </Menu>
+          <div className="mt-auto">
+            <Menu iconShape="square">
+              <MenuItem icon={<i className="fas fa-sign-out-alt"></i>} onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </div>
         </div>
+        <div style={{ marginLeft: 'auto', padding: '10px' }}>
+        </div>
+      </div>
     </div>
-</div>
     );
+  }
+  // If user is an admin, return admin page.
+  if (Auth.loggedIn() === true && Auth.getProfile().authenticatedPerson.isAdmin === true) {
+    return (
+      <div className="sticky-top">
+      <div className="sidebar" style={{ display: 'flex', height: '100vh' }}>
+        <div style={sidebarStyle} className="d-flex flex-column">
+          <div style={menuItemStyle} onClick={handleToggleSidebar}>
+            <i className="fas fa-bars"></i>
+            {!collapsed && (
+              <span style={{ marginLeft: '43px' }}>
+                <img src={logo} alt="Logo" className="sidebar-logo" />
+              </span>
+            )}
+          </div>
+          <Menu iconShape="square" className="flex-grow-1">
+          <Link to="/" style={{ textDecoration: "none", color: 'gray' }}>
+            <MenuItem icon={<i className="fas fa-tachometer-alt"></i>}>Dashboard</MenuItem>
+            </Link>
+            <SubMenu label="Users" icon={<i className="fas fa-user"></i>}>
+              <MenuItem>View Employees</MenuItem>
+              <Link to="/create-employee" style={{ textDecoration: "none", color: 'gray' }}>
+              <MenuItem>Create Employee</MenuItem>
+              </Link>
+            </SubMenu>
+            <MenuItem icon={<i className="fas fa-project-diagram"></i>}>Requests</MenuItem>
+          </Menu>
+          <div className="mt-auto">
+            <Menu iconShape="square">
+              <MenuItem icon={<i className="fas fa-sign-out-alt"></i>} onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </div>
+        </div>
+        <div style={{ marginLeft: 'auto', padding: '10px' }}>
+        </div>
+      </div>
+    </div>
+    );
+  }
+
 };
 
-export default SidePanel;
+export default Sidebar;

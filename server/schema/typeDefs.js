@@ -9,6 +9,15 @@ type User {
   clockedIn: Boolean
 }
 
+type TimeOffRequest {
+  _id: ID
+  userId: User
+  startDate: String
+  endDate: String
+  status: String
+  createdAt: String
+}
+
 type Post {
   _id: ID
   description: String!
@@ -56,6 +65,8 @@ type Query {
   thought(thoughtId: ID!): Thought
   logs: [Log]
   userLogs(userId: ID!): [Log]
+  timeOffRequests: [TimeOffRequest]
+  userTimeOffRequests(userId: ID!): [TimeOffRequest]
 }
 
 type Auth {
@@ -86,6 +97,8 @@ type Mutation {
   removeThoughtComment(thoughtId: ID!, commentId: ID!): Thought
   clockIn(userId: ID!): User
   clockOut(userId: ID!): User
+  requestTimeOff(userId: ID!, startDate: String!, endDate: String!): TimeOffRequest
+  updateTimeOffRequestStatus(requestId: ID!, status: String!): TimeOffRequest
 }
 `;
 

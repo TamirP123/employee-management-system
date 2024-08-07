@@ -7,6 +7,10 @@ import Homepage from './pages/Homepage.jsx';
 import Login from './pages/Login.jsx'
 import EmployeeDashboard from './pages/EmployeeDashboard.jsx';
 import LogsPage from './pages/LogsPage.jsx';
+import CreateEmployee from './pages/CreateEmployee.jsx';
+import RequestTimeOff from './pages/RequestTimeOff.jsx';
+import TimeOffRequests from './pages/TimeOffRequests.jsx';
+import ViewRequests from './pages/ViewRequests.jsx';
 
 
 const router = createBrowserRouter([
@@ -27,6 +31,18 @@ const router = createBrowserRouter([
       }, {
         path: '/logs',
         element: <LogsPage />
+      }, {
+        path: '/create-employee',
+        element: <CreateEmployee />
+      }, {
+        path: '/request-time-off',
+        element: <RequestTimeOff />
+      }, {
+        path: '/time-off-requests',
+        element: <TimeOffRequests />
+      }, {
+        path: '/view-requests',
+        element: <ViewRequests />
       },
       
     ]

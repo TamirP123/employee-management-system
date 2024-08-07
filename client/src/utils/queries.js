@@ -50,3 +50,29 @@ export const QUERY_LOGS = gql`
   }
 `;
 
+export const QUERY_TIME_OFF_REQUESTS = gql`
+  query timeOffRequests {
+    timeOffRequests {
+      _id
+      userId {
+        username
+      }
+      startDate
+      endDate
+      status
+      createdAt
+    }
+  }
+`;
+
+export const QUERY_USER_TIME_OFF_REQUESTS = gql`
+  query userTimeOffRequests($userId: ID!) {
+    userTimeOffRequests(userId: $userId) {
+      _id
+      startDate
+      endDate
+      status
+      createdAt
+    }
+  }
+`;

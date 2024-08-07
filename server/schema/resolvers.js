@@ -1,4 +1,4 @@
-const { User, Log } = require('../models');
+const { User, Log, TimeOffRequest } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -20,6 +20,12 @@ const resolvers = {
     },
     userLogs: async (parent, { userId }) => {
       return Log.find({ userId }).populate('userId').sort({ timestamp: -1 });
+    },
+    timeOffRequests: async () => {
+      return TimeOffRequest.find().populate('userId');
+    },
+    userTimeOffRequests: async (parent, { userId }) => {
+      return TimeOffRequest.find({ userId }).populate('userId');
     },
   },
 
@@ -77,6 +83,27 @@ const resolvers = {
     },
     addLog: async (parent, { userId, action }) => {
       return Log.create({ userId, action });
+    },
+    requestTimeOff: async (parent, { userId, startDate, endDate }, context) => {
+      if (context.user) {
+        const request = await TimeOffRequest.create({
+          userId,
+          startDate,
+          endDate,
+        });
+        return request;
+      }
+      throw new AuthenticationError('Not authenticated');
+    },
+    updateTimeOffRequestStatus: async (parent, { requestId, status }, context) => {
+      if (context.user && context.user.isAdmin) {
+        return TimeOffRequest.findOneAndUpdate(
+          { _id: requestId },
+          { status },
+          { new: true }
+        ).populate('userId');
+      }
+      throw new AuthenticationError('Not authenticated');
     },
   },
 };
