@@ -4,8 +4,21 @@ import dayjs from "dayjs";
 import { QUERY_TIME_OFF_REQUESTS } from "../utils/queries";
 import { UPDATE_TIME_OFF_REQUEST_STATUS } from "../utils/mutations";
 import SidePanel from "../components/SidePanel";
-import { Table, Button } from "react-bootstrap";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import ClockNotification from "../components/ClockNotification";
+import '../styles/timeoffrequests.css';  // Import your CSS file here
 
 const TimeOffRequests = () => {
   const { loading, data } = useQuery(QUERY_TIME_OFF_REQUESTS);
@@ -42,75 +55,82 @@ const TimeOffRequests = () => {
         <div className="col-2">
           <SidePanel />
         </div>
-        <div className="col-8">
-        <div className="pie-chart-card bg-light p-3">
-          <h2 className="mt-4 text-start text-secondary">Time Off Requests</h2>
-          <hr />
-          <Table className="table align-middle mb-0 bg-white mt-4">
-            <thead>
-              <tr>
-                <th className="text-center">Name</th>
-                <th className="text-center">Start Date</th>
-                <th className="text-center">End Date</th>
-                <th className="text-center">Status</th>
-                <th className="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.timeOffRequests.map((request) => {
-                const formattedStartDate = dayjs(request.startDate).format(
-                  "M/D/YYYY"
-                );
-                const formattedEndDate = dayjs(request.endDate).format(
-                  "M/D/YYYY"
-                );
-                const statusClass =
-                  request.status === "Approved"
-                    ? "badge-success"
-                    : "badge-warning";
+        <div className="col-10">
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div" gutterBottom>
+                Time Requests
+              </Typography>
+              <TableContainer component={Paper} className="table-container">
+                <Table className="table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">Name</TableCell>
+                      <TableCell align="center">Start Date</TableCell>
+                      <TableCell align="center">End Date</TableCell>
+                      <TableCell align="center">Status</TableCell>
+                      <TableCell align="center">Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.timeOffRequests.map((request) => {
+                      const formattedStartDate = dayjs(request.startDate).format(
+                        "M/D/YYYY"
+                      );
+                      const formattedEndDate = dayjs(request.endDate).format(
+                        "M/D/YYYY"
+                      );
 
-                return (
-                  <tr key={request._id}>
-                    <td className="text-center">
-                      <div className="d-flex align-items-center justify-content-center">
-                        <div className="ms-3">
-                          <p className="fw-bold mb-1">
+                      return (
+                        <TableRow key={request._id}>
+                          <TableCell align="center">
                             {request.userId.username}
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="text-center">{formattedStartDate}</td>
-                    <td className="text-center">{formattedEndDate}</td>
-                    <td className="text-center">{request.status}</td>
-                    <td className="text-center">
-                      <Button
-                        variant="outline-success"
-                        onClick={() => handleUpdate(request._id, "Approved")}
-                        className="me-2"
-                      >
-                        Approve
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => handleUpdate(request._id, "Rejected")}
-                      >
-                        Reject
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-          {notification.message && (
-            <ClockNotification
-              message={notification.message}
-              onClose={handleCloseNotification}
-              type={notification.type}
-            />
-          )}
-        </div>
+                          </TableCell>
+                          <TableCell align="center">
+                            {formattedStartDate}
+                          </TableCell>
+                          <TableCell align="center">
+                            {formattedEndDate}
+                          </TableCell>
+                          <TableCell align="center">
+                            {request.status}
+                          </TableCell>
+                          <TableCell align="center">
+                            <Button
+                              variant="outlined"
+                              color="success"
+                              onClick={() =>
+                                handleUpdate(request._id, "Approved")
+                              }
+                              style={{ marginRight: 8 }}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              onClick={() =>
+                                handleUpdate(request._id, "Rejected")
+                              }
+                            >
+                              Reject
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {notification.message && (
+                <ClockNotification
+                  message={notification.message}
+                  onClose={handleCloseNotification}
+                  type={notification.type}
+                />
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

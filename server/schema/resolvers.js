@@ -55,7 +55,7 @@ const resolvers = {
       if (context.user) {
         const user = await User.findOneAndUpdate(
           { _id: userId },
-          { $set: { clockedIn: true } },
+          { $set: { clockedIn: true, clockedInTime: new Date() } },
           { new: true }
         );
 
@@ -68,16 +68,31 @@ const resolvers = {
     },
     clockOut: async (parent, { userId }, context) => {
       if (context.user) {
-        const user = await User.findOneAndUpdate(
-          { _id: userId },
-          { $set: { clockedIn: false } },
-          { new: true }
-        );
+        const user = await User.findOne({ _id: userId });
 
-        // Create a new log entry for clock out
-        await Log.create({ userId, action: 'CLOCK_OUT' });
+        if (user && user.clockedIn) {
+          const clockedInTime = user.clockedInTime;
+          const currentTime = new Date();
+          const elapsedMinutes = (currentTime - clockedInTime) / (1000 * 60);
 
-        return user;
+          if (elapsedMinutes < 5) {
+            throw new Error("You can only clock out after 5 minutes of clocking in.");
+          }
+
+          // Update the user to reflect clock out
+          await User.findOneAndUpdate(
+            { _id: userId },
+            { $set: { clockedIn: false, clockedInTime: null } },
+            { new: true }
+          );
+
+          // Create a new log entry for clock out
+          await Log.create({ userId, action: 'CLOCK_OUT' });
+
+          return user;
+        } else {
+          throw new Error("User is not clocked in.");
+        }
       }
       throw new AuthenticationError('Not authenticated');
     },

@@ -89,5 +89,57 @@ body {
   color: rgb(121, 174, 192);
 }
 
+.hover-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 16px;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hover-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #1976d2; /* MUI primary color or any color you prefer */
+}
+
+.side-panel-col {
+  background-color: #f8f9fa; /* Light background color for the side panel */
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.link:hover {
+  color: #1976d2; /* MUI primary color or any color you prefer */
+  transform: scale(1.05);
+}
+
+.card {
+  margin: 0 auto;
+}
+
+.card .category {
+  padding: 20px;
+}
+
+@media (max-width: 576px) {
+  .card {
+    width: 100%;
+  }
+}
+
+
 
 

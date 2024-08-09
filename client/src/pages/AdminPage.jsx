@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Navbar, Nav } from "react-bootstrap";
+import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Row, Col, Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import Calendar from "../components/Calendar";
 import Auth from "../utils/auth";
-import EmployeeList from "../components/EmployeeList";
 import SidePanel from "../components/SidePanel";
 import LineChart from "../components/LineChart";
-import PieChart from "../components/PieChart"
+import PieChart from "../components/PieChart";
+import PerformanceChart from "../components/PerformanceChart";
 
 const AdminPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,61 +18,53 @@ const AdminPage = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <div className="row flex-nowrap">
-        <div className="col-2">
-          <SidePanel />
+    <div style={{ display: 'flex', height: '100vh' }}>
+      <SidePanel />
+      <div style={{ flexGrow: 1, padding: '16px' }}>
+        <Navbar bg="light" variant="dark" expand="lg">
+          <Container>
+            <Calendar />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto"></Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        <div style={{ margin: '16px 0' }}>
+          <Typography variant="h6" align="left">
+            Welcome {Auth.getProfile().authenticatedPerson.username}!
+          </Typography>
+          <Typography variant="body1">
+            View your Daily Analytics on the content below.
+          </Typography>
         </div>
-        <div className="col-10 py-3">
-          <Navbar bg="light" variant="dark" expand="lg">
-            <Container>
-              <Calendar></Calendar>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto"></Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-          <div className="py-3">
-            <h3 className="text-start mx-4 col-auto text-dark">
-              Welcome {Auth.getProfile().authenticatedPerson.username}!
-            </h3>
 
-            <p className="fs-6 text-start mx-4 lead">
-              View your Daily Analytics on the content below.
-            </p>
-
-            <div className="row">
+        {/* Cards */}
+        <div className="row mb-5 mx-5">
               <div className="col-3 mt-4">
                 <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                <Link to="/employees" className="link" style={{ textDecoration: "none" }}>
+                  <Link to="/employees" className="hover-link">
                     <i className="fa-regular fa-user fs-1 mb-1"></i>
                     <div className="fs-5 lead">Employees</div>
-                </Link>
-                  </div>
+                  </Link>
                 </div>
               </div>
 
               <div className="col-3 mt-4">
                 <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                  <Link to="/logs" className="link" style={{ textDecoration: "none" }}>
+                  <Link to="/logs" className="hover-link">
                     <i className="fa-regular fa-folder-closed fs-1 mb-1"></i>
                     <div className="fs-5 lead">Logs</div>
-                    </Link>
-                  </div>
+                  </Link>
                 </div>
               </div>
 
               <div className="col-3 mt-4">
                 <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                  <Link to="/time-off-requests" className="link" style={{ textDecoration: "none" }}>
+                  <Link to="/time-off-requests" className="hover-link">
                     <i className="fa-regular fa-clipboard fs-1 mb-1"></i>
                     <div className="fs-5 lead">Time-off Requests</div>
-                    </Link>
-                  </div>
+                  </Link>
                 </div>
               </div>
 
@@ -84,80 +77,25 @@ const AdminPage = () => {
                 </div>
               </div>
             </div>
-
             
-    <div className="row d-flex justify-content-center align-items-center">
-      <div className="col-8 performance-card bg-light mt-5">
-        <h3 className="text-start mx-2 mt-3 fs-4">Performance</h3>
-        <table className="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">Department</th>
-              <th scope="col">Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="align-middle">Developers</td>
-              <td>
-                <div className="progress">
-                  <div
-                    className="progress-bar bg-success"
-                    role="progressbar"
-                    style={{ width: '80%' }}
-                    aria-valuenow="80"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    80%
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="align-middle">Marketing</td>
-              <td>
-                <div className="progress">
-                  <div
-                    className="progress-bar bg-primary"
-                    role="progressbar"
-                    style={{ width: '65%' }}
-                    aria-valuenow="65"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    65%
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="align-middle">Sales</td>
-              <td>
-                <div className="progress">
-                  <div
-                    className="progress-bar bg-warning"
-                    role="progressbar"
-                    style={{ width: '45%' }}
-                    aria-valuenow="45"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    45%
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    <div className="row">
-      <LineChart/>
-      <PieChart/>
-    </div>
-    </div>
-          </div>
-        </div>
+        {/* Charts */}
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Paper elevation={3} style={{ padding: '16px' }}>
+              <PerformanceChart />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper elevation={3} style={{ padding: '16px' }}>
+              <LineChart />
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper elevation={3} style={{ padding: '16px' }}>
+              <PieChart />
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     </div>
   );

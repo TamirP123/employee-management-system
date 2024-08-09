@@ -1,0 +1,22 @@
+/* styles.css */
+
+/* Ensure the table container is responsive */
+.table-container {
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
+    width: 100%;
+  }
+  
+  .table {
+    width: 100%;
+    min-width: 600px; /* Ensures the table is wide enough for desktop */
+  }
+  
+  @media (max-width: 768px) {
+    .table {
+      font-size: 0.8rem; /* Reduce font size for better fit */
+    }
+    .table-container {
+      overflow-x: auto; /* Allow horizontal scrolling on mobile */
+    }
+  }
+  

@@ -1,73 +1,58 @@
-.user-card {
-    width: 250px;
-    height: 150px;
-    background: #E8EAEA;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+/* General Styling */
+.employee-card {
+  background-color: #f8f9fa;
+  margin-top: 1rem;
+  position: relative;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.employee-card h4 {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.create-employee-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .employee-card {
+      padding: 10px;
   }
-  
-  .title, .more {
-    padding: 10px 15px;
+
+  .employee-card h4 {
+      font-size: 1rem;
   }
-  
-  .user {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 15px;
+
+  .create-employee-btn {
+      font-size: 0.875rem;
+      padding: 6px 10px;
   }
-  
-  .user__content {
-    flex-grow: 1;
+
+  .table th, .table td {
+      font-size: 0.875rem;
+      padding: 6px;
   }
-  
-  .user__container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .title {
-    font-weight: 900;
-    font-size: 1.3em;
-  }
-  
-  .name {
-    font-weight: 800;
-  }
-  
-  .username {
-    font-size: .9em;
-    color: #64696e;
-  }
-  
-  .follow {
-    border: none;
-    border-radius: 25px;
-    background-color: #0f1113;
-    color: white;
-    padding: 8px 15px;
-    font-weight: 700;
-  }
-  
-  .more {
-    display: block;
-    text-decoration: none;
-    color: rgb(29, 155, 240);
-    font-weight: 800;
-  }
-  
-  .user:hover {
-    background-color: #b3b6b6;
-  }
-  
-  .more:hover {
-    background-color: #b3b6b6;
-    border-radius: 0px 0px 15px 15px;
-  }
-  
-  .follow:hover {
-    background-color: #2c3136;
-  }
+}

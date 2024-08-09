@@ -33,6 +33,9 @@ clockedIn: {
   type: Boolean,
   default: false
 },
+clockedInTime: { 
+  type: Date 
+},
   
 });
 

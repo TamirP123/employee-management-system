@@ -1,0 +1,32 @@
+/* piechart.css */
+
+.pie-chart-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 100%; /* Adjust height to match LineChart */
+  }
+  
+  .pie-chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Ensure full height to match LineChart */
+  }
+  
+  .pie-chart-card h3 {
+    margin-bottom: 16px;
+  }
+  
+
+  @media (max-width: 768px) {
+    .pie-chart-card {
+      padding: 12px;
+    }
+  
+    .pie-chart-card h3 {
+      font-size: 1.2rem;
+    }
+  }
+  

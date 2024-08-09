@@ -10,22 +10,23 @@ import SidePanel from "../components/SidePanel";
 import ClockNotification from "../components/ClockNotification";
 
 const EmployeePage = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [notification, setNotification] = useState(null);
+  const [lastClockInTime, setLastClockInTime] = useState(null);
 
   useEffect(() => {
-    setIsVisible(true);
+    setNotification(null);
   }, []);
 
-  // Track current time
-  const currentTime = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const user = data?.me || {};
 
   // Clock in action
   const [clockIn] = useMutation(CLOCK_IN, {
     onCompleted: () => {
-      setNotification(`You have clocked in at ${currentTime}.`);
+      const currentTime = new Date();
+      const formattedTime = currentTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      setLastClockInTime(currentTime);
+      setNotification(`You have clocked in at ${formattedTime}.`);
     },
     onError: (error) => {
       console.error("Error clocking in:", error);
@@ -36,12 +37,14 @@ const EmployeePage = () => {
   // Clock out action
   const [clockOut] = useMutation(CLOCK_OUT, {
     onCompleted: () => {
+      const currentTime = new Date();
+      const formattedTime = currentTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
       refetch();
-      setNotification(`You have clocked out at ${currentTime}.`);
+      setNotification(`You have clocked out at ${formattedTime}.`);
     },
     onError: (error) => {
       console.error("Error clocking out:", error);
-      setNotification("Error clocking out.");
+      setNotification(`Error: ${error.message}`);
     },
   });
 
@@ -57,91 +60,81 @@ const EmployeePage = () => {
   // Button handler to clock out
   const handleClockOut = async () => {
     try {
+      const currentTime = new Date();
+      if (lastClockInTime && (currentTime - lastClockInTime) < 5 * 60 * 1000) {
+        // Less than 5 minutes
+        setNotification("You must wait at least 5 minutes before clocking out.");
+        return;
+      }
       await clockOut({ variables: { userId: user._id } });
     } catch (error) {
-      console.error("Error clocking out:", error);
+      setNotification(`Error: ${error.message}`); // Show error message
     }
   };
 
   return (
     <div className="container-fluid">
       {notification && (
-        <ClockNotification message={notification} onClose={() => setNotification(null)} />
+        <ClockNotification message={notification} onClose={() => setNotification(null)} type={notification.startsWith("You have clocked in") ? "success" : "error"} />
       )}
       <div className="row flex-nowrap">
-        <div className="col-2">
+        <Col xs={2} className="side-panel-col"> {/* Resized SidePanel */}
           <SidePanel />
-        </div>
-        <div className="col-10 py-3">
-          <Navbar bg="light" variant="dark" expand="lg">
-            <Container>
-              <Calendar />
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto"></Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-          <div className="py-3">
-            <h3 className="text-start mx-4 col-auto text-dark">
+        </Col>
+        <Col xs={10} className="py-3 content-col">
+          <Container className="text-center mt-4 bg-light">
+            <h3 className="text-dark">
               Welcome {Auth.getProfile().authenticatedPerson.username}!
             </h3>
-
-            <p className="fs-6 text-start mx-4 lead">
+            <p className="fs-6 lead">
               View your Daily Analytics on the content below.
             </p>
+            <Calendar />
+          </Container>
 
-            <div className="row">
-              <div className="col-3 mt-4">
-                <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                    {user.clockedIn ? (
-                      <Link to="#" className="link" style={{ textDecoration: "none" }} onClick={handleClockOut}>
-                        <i className="fa-solid fa-clock-rotate-left fs-1 mb-1"></i>
-                        <div className="fs-5 lead">Clock-Out</div>
-                      </Link>
-                    ) : (
-                      <Link to="#" className="link" style={{ textDecoration: "none" }} onClick={handleClockIn}>
-                        <i className="fa-solid fa-clock-rotate-left fs-1 mb-1"></i>
-                        <div className="fs-5 lead">Clock-In</div>
-                      </Link>
-                    )}
-                  </div>
+          {/* Cards and Links */}
+          <Row className="justify-content-center mt-4">
+            <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
+              <div className="card bg-light d-flex justify-content-center align-items-center">
+                {user.clockedIn ? (
+                  <Link to="#" className="link" onClick={handleClockOut}>
+                    <i className="fa-solid fa-clock-rotate-left fs-1 mb-1"></i>
+                    <div className="fs-5 lead">Clock-Out</div>
+                  </Link>
+                ) : (
+                  <Link to="#" className="link" onClick={handleClockIn}>
+                    <i className="fa-solid fa-clock-rotate-left fs-1 mb-1"></i>
+                    <div className="fs-5 lead">Clock-In</div>
+                  </Link>
+                )}
+              </div>
+            </Col>
+            <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
+              <div className="card bg-light d-flex justify-content-center align-items-center">
+                <Link to="/logs" className="link">
+                  <i className="fa-regular fa-folder-closed fs-1 mb-1"></i>
+                  <div className="fs-5 lead">Logs</div>
+                </Link>
+              </div>
+            </Col>
+            <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
+              <div className="card bg-light d-flex justify-content-center align-items-center">
+                <Link to="/request-time-off" className="link">
+                  <i className="fa-regular fa-clipboard fs-1 mb-1"></i>
+                  <div className="fs-5 lead">Request Time-off</div>
+                </Link>
+              </div>
+            </Col>
+            <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
+              <div className="card bg-light d-flex justify-content-center align-items-center">
+                <div className="category text-center">
+                  <i className="fa-solid fa-gears fs-1 mb-1"></i>
+                  <div className="fs-5 lead">Settings</div>
                 </div>
               </div>
-
-              <div className="col-3 mt-4">
-                <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                    <i className="fa-regular fa-folder-closed fs-1 mb-1"></i>
-                    <div className="fs-5 lead">Logs</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-3 mt-4">
-                <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                  <Link to="/request-time-off" className="link" style={{ textDecoration: "none" }}>
-                    <i className="fa-regular fa-clipboard fs-1 mb-1"></i>
-                    <div className="fs-5 lead">Request Time-off</div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-3 mt-4">
-                <div className="card bg-light d-flex justify-content-center align-items-center">
-                  <div className="category text-center">
-                    <i className="fa-solid fa-gears fs-1 mb-1"></i>
-                    <div className="fs-5 lead text">Settings</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Col>
       </div>
     </div>
   );

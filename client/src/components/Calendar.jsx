@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/calendar.css';
+import { Grid, Typography, Paper, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
+const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+const HighlightedPaper = styled(Paper)(({ theme, isToday }) => ({
+  backgroundColor: isToday ? theme.palette.primary.main : theme.palette.background.paper,
+  color: isToday ? theme.palette.primary.contrastText : theme.palette.text.primary,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[2],
+  height: '100%',
+  [theme.breakpoints.down('sm')]: {
+    minWidth: '30px',
+    padding: theme.spacing(0.5),
+    fontSize: '0.75rem',
+  },
+}));
 
 const WeeklyCalendar = () => {
-  const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const today = new Date();
   const currentDayIndex = today.getDay();
   const startOfWeek = new Date(today);
@@ -25,48 +41,35 @@ const WeeklyCalendar = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // const formatTime = (date) => {
-  //   const hours = date.getHours();
-  //   const minutes = date.getMinutes();
-  //   const isAm = hours < 12;
-  //   const formattedHours = hours % 12 || 12;
-  //   const formattedMinutes = minutes.toString().padStart(2, '0');
-  //   const amPm = isAm ? 'AM' : 'PM';
-  //   return `${formattedHours}:${formattedMinutes} ${amPm}`;
-  // };
-
-  // const formatDate = (date) => {
-  //   const options = { weekday: 'long', month: 'long', day: 'numeric' };
-  //   return date.toLocaleDateString('en-US', options);
-  // };
-
   return (
-    <div className="weekly-calendar container">
-      <div className="row">
+    <Box sx={{ padding: 1 }}>
+      <Grid container spacing={1} justifyContent="center" alignItems="center">
         {weekDays.map((date, index) => (
-          <div
-            key={index}
-            className={`day col ${index === currentDayIndex ? 'today' : ''}`}
-          >
-            <div className="day-name">{daysOfWeek[date.getDay()]}</div>
-            <div className="day-number">{date.getDate()}</div>
-          </div>
+          <Grid item xs={1} key={index}> 
+            <HighlightedPaper 
+              isToday={index === currentDayIndex} 
+              sx={{ height: 60, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+            >
+              <Typography variant="caption">{daysOfWeek[date.getDay()]}</Typography>
+              <Typography variant="body2">{date.getDate()}</Typography>
+            </HighlightedPaper>
+          </Grid>
         ))}
-      {/* <div className="row mt-3 justify-content-start">
-        <div className="col-12 col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <p className="time-text">
-                <span>{formatTime(currentTime).split(' ')[0]}</span>
-                <span className="time-sub-text">{formatTime(currentTime).split(' ')[1]}</span>
-              </p>
-              <p className="day-text">{formatDate(currentTime)}</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
-      </div>
-    </div>
+      </Grid>      
+      <Grid container spacing={2} marginTop={2} justifyContent="center">
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} sx={{ padding: 1, textAlign: 'center' }}>
+            <Typography variant="body2">
+              <span>{currentTime.toLocaleTimeString().split(' ')[0]}</span>
+              <Typography variant="caption">{currentTime.toLocaleTimeString().split(' ')[1]}</Typography>
+            </Typography>
+            <Typography variant="caption">
+              {currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

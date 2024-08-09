@@ -1,38 +1,49 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';  // Importing chart.js automatically
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { Card, CardContent, Typography } from '@mui/material';
 
-function LineChart() {
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Revenue Sales',
-        data: [12000, 19000, 3000, 5000, 2000, 3000, 7000],
-        fill: false,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        tension: 0.1
-      }
-    ]
-  };
-
-  const options = {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  };
+function LineChartComponent() {
+  // Define your data
+  const data = [
+    { name: 'January', revenue: 12000 },
+    { name: 'February', revenue: 19000 },
+    { name: 'March', revenue: 3000 },
+    { name: 'April', revenue: 5000 },
+    { name: 'May', revenue: 2000 },
+    { name: 'June', revenue: 3000 },
+    { name: 'July', revenue: 7000 }
+  ];
 
   return (
-    <div className="container mt-5 col-7">
-      <div className="revenue-card bg-light p-3">
-        <h3 className="text-center">Revenue Sales</h3>
-        <Line data={data} options={options} />
-      </div>
+    <div style={{ width: '100%', height: 400 }}>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h6" align="center" gutterBottom>
+            Revenue Sales
+          </Typography>
+          <LineChart
+            width={600}
+            height={300}
+            data={data}
+            margin={{ top: 20, right: 30, left: 0, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#4CAF50"
+              activeDot={{ r: 8 }}
+              animationDuration={1000}  // Animation duration in milliseconds
+            />
+          </LineChart>
+        </CardContent>
+      </Card>
     </div>
   );
 }
 
-export default LineChart;
+export default LineChartComponent;

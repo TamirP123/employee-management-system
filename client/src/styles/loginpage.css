@@ -20,11 +20,7 @@
   .form-control, .btn{        
     border-radius: 3px;
   }
-  .signup-form{
-    width: 500px;
-    margin: 0 auto;
-    padding: 30px 0;
-  }
+
   .signup-form h2{
     color: #636363;
     margin: 0 0 15px;
@@ -104,3 +100,30 @@
     transition: opacity 1.5s ease-in;
     height: 100vh;
   }
+
+
+.signup-form {
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+@media (max-width: 768px) {
+    .signup-form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .signup-form form {
+        padding: 20px;
+    }
+
+    .form-control {
+        height: 35px;
+    }
+
+    .signup-form .btn {
+        min-width: 100px;
+        font-size: 14px;
+    }
+}
