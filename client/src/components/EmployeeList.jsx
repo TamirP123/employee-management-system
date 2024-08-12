@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import { QUERY_USERS } from "../utils/queries";
+import { Avatar } from "@mui/material";
 import '../styles/employeelist.css';
 
 const EmployeeList = () => {
@@ -18,7 +19,7 @@ const EmployeeList = () => {
             <div className="d-flex justify-content-between align-items-center mx-3 mt-3">
                 <h4 className="lead">Employee List</h4>
                 <Link to="/create-employee" className="create-employee-btn">
-                    <i className="fas fa-plus"></i>
+                    <i className="fa-solid fa-user-plus"></i>
                 </Link>
             </div>
             <div className="col-12">
@@ -34,7 +35,14 @@ const EmployeeList = () => {
                     <tbody>
                         {nonAdminUsers.map((user) => (
                             <tr key={user.id}>
-                                <td>{user.username}</td>
+                                <td className="d-flex align-items-center">
+                                    <Avatar
+                                        alt={user.username}
+                                        src={user.profilePicture}
+                                        sx={{ width: 40, height: 40, marginRight: 2 }}
+                                    />
+                                    {user.username}
+                                </td>
                                 <td>{user.email}</td>
                                 <td>Employee</td>
                                 <td>{user.createdAt}</td>

@@ -28,6 +28,7 @@ const Sidebar = () => {
                     <Link to="/" style={{ textDecoration: "none", color: 'gray' }}>
                         <MenuItem icon={<i className="fas fa-tachometer-alt"></i>}>Dashboard</MenuItem>
                     </Link>
+                    {/* If user is not an admin */}
                     {Auth.loggedIn() && !Auth.getProfile().authenticatedPerson.isAdmin && (
                         <SubMenu label="Requests" icon={<i className="fa-solid fa-user-plus"></i>}>
                             <Link to="/view-requests" style={{ textDecoration: "none", color: 'gray' }}>
@@ -38,6 +39,7 @@ const Sidebar = () => {
                             </Link>
                         </SubMenu>
                     )}
+                    {/* If user is an admin */}
                     {Auth.loggedIn() && Auth.getProfile().authenticatedPerson.isAdmin && (
                         <SubMenu label="Users" icon={<i className="fas fa-user"></i>}>
                             <MenuItem>View Employees</MenuItem>

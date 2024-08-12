@@ -134,6 +134,38 @@ body {
   padding: 20px;
 }
 
+.widgetbtn {
+  width: 9em;
+  height: 3em;
+  border-radius: 8px;
+  border: 0.15em solid rgb(63, 146, 255);
+  color: rgb(63, 146, 255);
+  background-color: #00000000;
+  transition: all 0.5s ease;
+}
+
+.widgetbtn .text {
+  display: none
+}
+
+.widgetbtn:hover>.text {
+  display: block;
+}
+
+.widgetbtn:hover>i {
+  display: none;
+}
+
+.widgetbtn:hover {
+  background-color: rgb(63, 146, 255);
+  color: #fff
+}
+
+.widgetbtn i {
+  width: 1.5em;
+  margin-top: 3px;
+}
+
 @media (max-width: 576px) {
   .card {
     width: 100%;

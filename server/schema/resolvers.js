@@ -99,12 +99,13 @@ const resolvers = {
     addLog: async (parent, { userId, action }) => {
       return Log.create({ userId, action });
     },
-    requestTimeOff: async (parent, { userId, startDate, endDate }, context) => {
+    requestTimeOff: async (parent, { userId, startDate, endDate, notes }, context) => {
       if (context.user) {
         const request = await TimeOffRequest.create({
           userId,
           startDate,
           endDate,
+          notes,
         });
         return request;
       }
@@ -117,6 +118,12 @@ const resolvers = {
           { status },
           { new: true }
         ).populate('userId');
+      }
+      throw new AuthenticationError('Not authenticated');
+    },
+    updateProfilePicture: async (parent, { userId, profilePicture }, context) => {
+      if (context.user) {
+        return User.findByIdAndUpdate(userId, { profilePicture }, { new: true });
       }
       throw new AuthenticationError('Not authenticated');
     },

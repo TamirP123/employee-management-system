@@ -5,7 +5,7 @@ const SlideTransition = (props) => {
   return <Slide {...props} direction="up" />;
 };
 
-const Notification = ({ message, onClose, type }) => {
+const ClockNotification = ({ message, onClose, type }) => {
   return (
     <Snackbar
       open={!!message}
@@ -21,4 +21,4 @@ const Notification = ({ message, onClose, type }) => {
   );
 };
 
-export default Notification;
+export default ClockNotification;

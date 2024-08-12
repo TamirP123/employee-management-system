@@ -11,6 +11,9 @@ import CreateEmployee from './pages/CreateEmployee.jsx';
 import RequestTimeOff from './pages/RequestTimeOff.jsx';
 import TimeOffRequests from './pages/TimeOffRequests.jsx';
 import ViewRequests from './pages/ViewRequests.jsx';
+import ViewProfile from './pages/ViewProfile.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -30,19 +33,23 @@ const router = createBrowserRouter([
         element: <EmployeeDashboard />
       }, {
         path: '/logs',
-        element: <LogsPage />
+        element: <ProtectedRoute element={<LogsPage/>} isAdminRoute={true} />
+
       }, {
         path: '/create-employee',
-        element: <CreateEmployee />
+        element: <ProtectedRoute element={<CreateEmployee />} isAdminRoute={true} />
       }, {
         path: '/request-time-off',
         element: <RequestTimeOff />
       }, {
         path: '/time-off-requests',
-        element: <TimeOffRequests />
+        element: <ProtectedRoute element={<TimeOffRequests />} isAdminRoute={true} />
       }, {
         path: '/view-requests',
         element: <ViewRequests />
+      }, {
+        path: '/view-profile',
+        element: <ViewProfile />
       },
       
     ]

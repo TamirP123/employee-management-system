@@ -52,15 +52,16 @@ export const CLOCK_OUT = gql`
 `;
 
 export const REQUEST_TIME_OFF = gql`
-  mutation requestTimeOff($userId: ID!, $startDate: String!, $endDate: String!) {
-    requestTimeOff(userId: $userId, startDate: $startDate, endDate: $endDate) {
-      _id
-      startDate
-      endDate
-      status
-      createdAt
-    }
+  mutation requestTimeOff($userId: ID!, $startDate: String!, $endDate: String!, $notes: String!) {
+  requestTimeOff(userId: $userId, startDate: $startDate, endDate: $endDate, notes: $notes) {
+    _id
+    startDate
+    endDate
+    status
+    createdAt
+    notes
   }
+}
 `;
 
 export const UPDATE_TIME_OFF_REQUEST_STATUS = gql`
@@ -72,3 +73,11 @@ export const UPDATE_TIME_OFF_REQUEST_STATUS = gql`
   }
 `;
 
+export const UPDATE_PROFILE_PICTURE = gql`
+  mutation updateProfilePicture($userId: ID!, $profilePicture: String!) {
+    updateProfilePicture(userId: $userId, profilePicture: $profilePicture) {
+      _id
+      profilePicture
+    }
+  }
+`;

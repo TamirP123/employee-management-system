@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Navbar, Nav } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -20,7 +20,6 @@ const EmployeePage = () => {
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const user = data?.me || {};
 
-  // Clock in action
   const [clockIn] = useMutation(CLOCK_IN, {
     onCompleted: () => {
       const currentTime = new Date();
@@ -34,7 +33,6 @@ const EmployeePage = () => {
     },
   });
 
-  // Clock out action
   const [clockOut] = useMutation(CLOCK_OUT, {
     onCompleted: () => {
       const currentTime = new Date();
@@ -48,7 +46,6 @@ const EmployeePage = () => {
     },
   });
 
-  // Button handler to clock in
   const handleClockIn = async () => {
     try {
       await clockIn({ variables: { userId: user._id } });
@@ -57,18 +54,16 @@ const EmployeePage = () => {
     }
   };
 
-  // Button handler to clock out
   const handleClockOut = async () => {
     try {
       const currentTime = new Date();
       if (lastClockInTime && (currentTime - lastClockInTime) < 5 * 60 * 1000) {
-        // Less than 5 minutes
         setNotification("You must wait at least 5 minutes before clocking out.");
         return;
       }
       await clockOut({ variables: { userId: user._id } });
     } catch (error) {
-      setNotification(`Error: ${error.message}`); // Show error message
+      setNotification(`Error: ${error.message}`);
     }
   };
 
@@ -78,10 +73,10 @@ const EmployeePage = () => {
         <ClockNotification message={notification} onClose={() => setNotification(null)} type={notification.startsWith("You have clocked in") ? "success" : "error"} />
       )}
       <div className="row flex-nowrap">
-        <Col xs={2} className="side-panel-col"> {/* Resized SidePanel */}
+        <Col xs={2} className="p-0">
           <SidePanel />
         </Col>
-        <Col xs={10} className="py-3 content-col">
+        <Col xs={9} className="py-3 content-col">
           <Container className="text-center mt-4 bg-light">
             <h3 className="text-dark">
               Welcome {Auth.getProfile().authenticatedPerson.username}!
@@ -92,7 +87,6 @@ const EmployeePage = () => {
             <Calendar />
           </Container>
 
-          {/* Cards and Links */}
           <Row className="justify-content-center mt-4">
             <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
               <div className="card bg-light d-flex justify-content-center align-items-center">
@@ -128,8 +122,10 @@ const EmployeePage = () => {
             <Col xs={12} sm={6} md={3} className="d-flex justify-content-center mb-3">
               <div className="card bg-light d-flex justify-content-center align-items-center">
                 <div className="category text-center">
-                  <i className="fa-solid fa-gears fs-1 mb-1"></i>
-                  <div className="fs-5 lead">Settings</div>
+                  <Link to="/view-profile" className="link">
+                    <i className="fa-solid fa-gears fs-1 mb-1"></i>
+                    <div className="fs-5 lead">View Profile</div>
+                  </Link>
                 </div>
               </div>
             </Col>

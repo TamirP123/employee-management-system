@@ -36,6 +36,10 @@ clockedIn: {
 clockedInTime: { 
   type: Date 
 },
+profilePicture: {
+  type: String,
+  default: '',
+},
   
 });
 

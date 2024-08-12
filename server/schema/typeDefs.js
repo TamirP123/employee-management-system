@@ -7,6 +7,8 @@ type User {
   isAdmin: Boolean
   createdAt: String
   clockedIn: Boolean
+  clockedInTime: String
+  profilePicture: String
 }
 
 type TimeOffRequest {
@@ -16,6 +18,7 @@ type TimeOffRequest {
   endDate: String
   status: String
   createdAt: String
+  notes: String
 }
 
 type Post {
@@ -97,8 +100,9 @@ type Mutation {
   removeThoughtComment(thoughtId: ID!, commentId: ID!): Thought
   clockIn(userId: ID!): User
   clockOut(userId: ID!): User
-  requestTimeOff(userId: ID!, startDate: String!, endDate: String!): TimeOffRequest
+  requestTimeOff(userId: ID!, startDate: String!, endDate: String!, notes: String!): TimeOffRequest
   updateTimeOffRequestStatus(requestId: ID!, status: String!): TimeOffRequest
+  updateProfilePicture(userId: ID!, profilePicture: String!): User
 }
 `;
 

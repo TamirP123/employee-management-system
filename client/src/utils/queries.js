@@ -21,6 +21,7 @@ export const QUERY_ME = gql`
       isAdmin
       createdAt
       clockedIn
+      profilePicture
     }
   }
 `;
@@ -33,6 +34,7 @@ export const QUERY_USERS = gql`
         isAdmin
         createdAt
         clockedIn
+        profilePicture
       }
   }
 `;
@@ -61,6 +63,7 @@ export const QUERY_TIME_OFF_REQUESTS = gql`
       endDate
       status
       createdAt
+      notes
     }
   }
 `;
@@ -73,6 +76,7 @@ export const QUERY_USER_TIME_OFF_REQUESTS = gql`
       endDate
       status
       createdAt
+      notes
     }
   }
 `;

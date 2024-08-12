@@ -27,6 +27,10 @@ const timeOffRequestSchema = new Schema({
         return dayjs(dateTime).format("M/D/YYYY")
     },
   },
+  notes: {
+    type: String,
+    default: '',
+  },
 });
 
 const TimeOffRequest = model('TimeOffRequest', timeOffRequestSchema);
