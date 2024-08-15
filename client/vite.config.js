@@ -1,6 +1,24 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path';
+import {
+  resolve
+} from "path";
+
+const aliases = {
+  '@crema': 'src/@crema',
+  'core': 'src/core',
+  'assets': 'src/assets',
+  '@hook': 'src/@hook',
+  'components': 'src/components',
+  'features': 'src/features',
+  'guards': 'src/guards',
+  'pages': 'src/pages',
+  'types': 'src/types',
+};
+
+const resolvedAliases = Object.fromEntries(
+  Object.entries(aliases).map(([key, value]) => [key, resolve(__dirname, value)]),
+);
 
 export default defineConfig({
   server: {
@@ -12,12 +30,21 @@ export default defineConfig({
         secure: false,
       }
     },
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-        "@tests": path.resolve(__dirname, "./tests")
+    build: {
+      rollupOptions: {
+          external: [
+              "react", // ignore react stuff
+              "react-dom",
+          ],
       }
-    }
+  },
+  resolve: {
+      alias: {
+          ...resolvedAliases,
+          './runtimeConfig': './runtimeConfig.browser',
+          'jss-plugin-{}': 'jss-plugin-global'
+      },
+  }
   },
   plugins: [react()],
 })
