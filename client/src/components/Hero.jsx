@@ -56,7 +56,7 @@ const Hero = () => {
                     <hr />
                     <p className="hint-text">
                         You can use an admin email such as <span className='text-danger'>"admin@gmail.com"</span> 
-                        or an employee email such as <span className='text-primary'>"employee@gmail.com"</span> to login.
+                        or an employee email such as <span className='text-primary'>"johndoe@gmail.com"</span> to login.
                     </p>
                     <div className="form-group">
                         <input
