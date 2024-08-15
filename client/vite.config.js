@@ -10,6 +10,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       }
+    },
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+        "@tests": path.resolve(__dirname, "./tests")
+      }
     }
   },
   plugins: [react()],
