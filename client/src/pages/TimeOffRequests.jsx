@@ -20,7 +20,7 @@ import {
   Box,
 } from "@mui/material";
 import ClockNotification from "../components/ClockNotification";
-import '../styles/timeoffrequests.css';  // Import your CSS file here
+import '../styles/timeoffrequests.css'; 
 
 const TimeOffRequests = () => {
   const { loading, data } = useQuery(QUERY_TIME_OFF_REQUESTS);
@@ -53,7 +53,7 @@ const TimeOffRequests = () => {
         message: `Request ${status}`,
         type: status === "Rejected" ? "error" : "success",
       });
-      handleCloseModal(); // Close modal after updating status
+      handleCloseModal();
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +84,7 @@ const TimeOffRequests = () => {
                       <TableCell align="center">Name</TableCell>
                       <TableCell align="center">Start Date</TableCell>
                       <TableCell align="center">End Date</TableCell>
-                      <TableCell align="center">Notes</TableCell> {/* Add Notes header */}
+                      <TableCell align="center">Notes</TableCell> 
                       <TableCell align="center">Status</TableCell>
                       <TableCell align="center">Action</TableCell>
                     </TableRow>
@@ -111,7 +111,7 @@ const TimeOffRequests = () => {
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap"
                             }}
-                            title={request.notes} // Tooltip on hover to show full notes
+                            title={request.notes}
                           >
                             {request.notes}
                           </TableCell>

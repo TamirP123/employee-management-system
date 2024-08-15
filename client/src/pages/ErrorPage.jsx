@@ -1,9 +1,9 @@
 import { Navigate, Link } from 'react-router-dom';
 import { Container, Typography, Button, Box } from '@mui/material';
-import Auth from '../utils/auth';
 
-const ProtectedRoute = ({ element, isAdminRoute = false }) => {
-  if (!Auth.loggedIn()) {
+
+const ErrorPage = () => {
+
     return (
       <Container sx={{ textAlign: 'center', mt: 5 }}>
       <Box>
@@ -18,7 +18,7 @@ const ProtectedRoute = ({ element, isAdminRoute = false }) => {
         Oops! Something went wrong.
       </Typography>
       <Typography variant="body1" gutterBottom>
-        The do not have access to the page you are looking for.
+        This is not the page you are looking for.
       </Typography>
 
     
@@ -27,13 +27,6 @@ const ProtectedRoute = ({ element, isAdminRoute = false }) => {
       </Button>
     </Container>
     );
-  }
+  };
 
-  if (isAdminRoute && !Auth.getProfile().authenticatedPerson.isAdmin) {
-    return <Navigate to="/" />;
-  }
-
-  return element;
-};
-
-export default ProtectedRoute;
+export default ErrorPage;

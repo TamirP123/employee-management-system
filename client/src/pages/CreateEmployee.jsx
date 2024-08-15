@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { ADD_USER } from "../utils/mutations";
 import Auth from '../utils/auth';
-import ClockNotification from '../components/ClockNotification'; // Ensure this path is correct
+import ClockNotification from '../components/ClockNotification';
 
 const CreateEmployee = () => {
     const [formState, setFormState] = useState({ username: '', email: '', password: '' });

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from "react-router-dom";
 import { QUERY_ME, QUERY_USER_TIME_OFF_REQUESTS } from '../utils/queries';
+import SidePanel from '../components/SidePanel';
 
 const ViewRequests = () => {
   // Query to get the current user's information
@@ -10,8 +11,7 @@ const ViewRequests = () => {
 
   // Query to get the current user's time off requests
   const { loading: requestsLoading, data: requestsData, refetch } = useQuery(QUERY_USER_TIME_OFF_REQUESTS, {
-    variables: { userId: user._id },
-    skip: !user._id, // Skip query until userId is available
+    variables: { userId: user._id }
   });
 
   const [requests, setRequests] = useState([]);
@@ -26,8 +26,13 @@ const ViewRequests = () => {
   if (!user._id) return <p>Error loading user information</p>;
 
   return (
-    <div className="container">
-      <div className="pie-chart-card bg-light p-3">
+    <div className="container-fluid">
+      <div className="row flex-nowrap">
+      <div className="col-2">
+          <SidePanel />
+        </div>
+        <div className="col-9">
+      <div className="pie-chart-card bg-light p-3 mt-3" >
         <div className="d-flex justify-content-between align-items-center">
           <h3>{user.username}'s Time Off Requests</h3>
           <Link to="/request-time-off" className="create-employee-btn">
@@ -53,6 +58,8 @@ const ViewRequests = () => {
             ))}
           </tbody>
         </table>
+        </div>
+      </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, TextField, Button, Grid } from '@mui/mat
 import { QUERY_ME } from '../utils/queries';
 import { REQUEST_TIME_OFF } from '../utils/mutations';
 import ClockNotification from '../components/ClockNotification';
-import SidePanel from '../components/SidePanel'; // Import the SidePanel component
+import SidePanel from '../components/SidePanel';
 
 const RequestTimeOff = () => {
   const [startDate, setStartDate] = useState('');
@@ -52,7 +52,7 @@ const RequestTimeOff = () => {
   return (
     <Grid container>
       <Grid item xs={12} md={2}>
-        <SidePanel /> {/* Add the SidePanel component here */}
+        <SidePanel />
       </Grid>
       <Grid item xs={12} md={9}>
         <Card sx={{ maxWidth: 600, margin: 'auto', marginTop: 4 }}>

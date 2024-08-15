@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 import { Card, CardContent, Typography } from '@mui/material';
 
 function LineChartComponent() {
-  // Define your data
   const data = [
     { name: 'January', revenue: 12000 },
     { name: 'February', revenue: 19000 },
@@ -37,7 +36,7 @@ function LineChartComponent() {
               dataKey="revenue"
               stroke="#4CAF50"
               activeDot={{ r: 8 }}
-              animationDuration={1000}  // Animation duration in milliseconds
+              animationDuration={1000} 
             />
           </LineChart>
         </CardContent>

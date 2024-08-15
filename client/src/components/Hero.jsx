@@ -9,7 +9,7 @@ import logo from '../assets/logo.png';
 import '../styles/hero.css';
 
 const Hero = () => {
-    const [formState, setFormState] = useState({ email: '', password: '' });
+    const [formState, setFormState] = useState({ email: 'admin@gmail.com', password: 'password' });
     const [login, { error }] = useMutation(LOGIN);
     const [notification, setNotification] = useState({ message: '', type: '' });
 
@@ -66,6 +66,7 @@ const Hero = () => {
                             placeholder="Email"
                             required="required"
                             onChange={handleChange}
+                            value={formState.email}
                         />
                     </div>
                     <div className="form-group">
@@ -73,9 +74,10 @@ const Hero = () => {
                             type="password"
                             className="form-control"
                             name="password"
-                            placeholder="Password is `password`"
+                            placeholder="Password"
                             required="required"
                             onChange={handleChange}
+                            value={formState.password}
                         />
                     </div>
                     <div className="form-group">
@@ -100,3 +102,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

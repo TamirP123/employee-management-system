@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import 'chart.js/auto';  // Importing chart.js automatically
+import 'chart.js/auto'; 
 import '../styles/piechart.css'
 
 function GrowthPieChart() {

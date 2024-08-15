@@ -5,7 +5,7 @@ import { Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import logo from "../assets/logo.png";
 import '../styles/sidebar.css';
 
-const Sidebar = () => {
+const SidePanel = () => {
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
@@ -62,4 +62,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default SidePanel;
